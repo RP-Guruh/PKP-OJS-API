@@ -1,0 +1,2 @@
+class AuthorSetting < ApplicationRecord
+end

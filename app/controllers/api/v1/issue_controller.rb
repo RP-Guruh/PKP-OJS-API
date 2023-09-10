@@ -1,4 +1,4 @@
-class Api::V1::IssueController < ApplicationController
+class Api::V1::IssueController < Api::V1::AuthenticatedController
 
   # Mendapatkan semua issue dari semua journal
   def getAllIssue

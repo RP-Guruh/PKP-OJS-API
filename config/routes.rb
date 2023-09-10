@@ -19,10 +19,11 @@ Rails.application.routes.draw do
       get '/journal/:id', to: 'journal#getJournalByID'
 
       #  Article API
-      # get '/publications'  SEMUA PUBLIKASI PADA JURNAL
-      # get '/publication/:id' PUBLIKASI JURNAL BERDASARKAN ID PUBLIKASI NYA
-      # get '/publication/journal/:id' SEMUA PUBLIKASI BERDASARKAN JURNAL NYA MASING MASING
-
+      get '/publications', to: 'publication#getAllPublication'  # SEMUA PUBLIKASI PADA JURNAL
+      get '/publication/:id', to: 'publication#getPublicationById' #PUBLIKASI JURNAL BERDASARKAN ID PUBLIKASI NYA
+      get '/publication/limit/:limit', to: 'publication#getAllPublicationByLimit' #PUBLIKASI JURNAL BERDASARKAN ID PUBLIKASI NYA
+      get '/publication/journal/:id', to: 'publication#getAllPublicationByJournal' # SEMUA PUBLIKASI BERDASARKAN JURNAL NYA MASING MASING
+      get '/publication/journal/:journal/issue/:issue', to: 'publication#getAllPublicationByIssue'
     end
   end
 end
