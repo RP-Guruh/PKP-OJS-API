@@ -20,20 +20,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_09_045949) do
     t.index ["key_hash", "user_id", "context"], name: "access_keys_hash"
   end
 
-  create_table "active_admin_comments", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
-    t.string "namespace"
-    t.text "body"
-    t.string "resource_type"
-    t.bigint "resource_id"
-    t.string "author_type"
-    t.bigint "author_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author"
-    t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
-    t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource"
-  end
-
   create_table "announcement_settings", id: false, charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.bigint "announcement_id", null: false
     t.string "locale", limit: 14, default: "", null: false
@@ -473,22 +459,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_09_045949) do
     t.index ["queue", "reserved_at"], name: "jobs_queue_reserved_at_index"
   end
 
-  create_table "journal_informations", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
-    t.text "journal_fullname"
-    t.text "journal_alias"
-    t.text "journal_url"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "journal_other_name"
-    t.string "journal_theme"
-  end
-
-  create_table "journal_name", id: :integer, charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
-    t.string "nama", null: false
-    t.string "pissn", null: false
-    t.string "eissn", null: false
-  end
-
   create_table "journal_settings", id: false, charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.bigint "journal_id", null: false
     t.string "locale", limit: 14, default: "", null: false
@@ -505,11 +475,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_09_045949) do
     t.string "primary_locale", limit: 14, null: false
     t.integer "enabled", limit: 2, default: 1, null: false, comment: "Controls whether or not the journal is considered \"live\" and will appear on the website. (Note that disabled journals may still be accessible, but only if the user knows the URL.)"
     t.index ["path"], name: "journals_path", unique: true
-  end
-
-  create_table "jurnal", id: :integer, charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
-    t.string "nama_jurnal", null: false
-    t.string "singkatan", null: false
   end
 
   create_table "library_file_settings", id: false, charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
@@ -881,29 +846,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_09_045949) do
     t.index ["class_name"], name: "scheduled_tasks_pkey", unique: true
   end
 
-  create_table "scrap_addresses", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
-    t.text "theme"
-    t.text "category"
-    t.text "address"
-    t.text "note"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "url_slug"
-  end
-
-  create_table "scrap_categories", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "slug"
-  end
-
-  create_table "scrap_themes", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "section_settings", id: false, charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.bigint "section_id", null: false
     t.string "locale", limit: 14, default: "", null: false
@@ -927,16 +869,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_09_045949) do
     t.integer "is_inactive", limit: 2, default: 0, null: false
     t.bigint "abstract_word_count"
     t.index ["journal_id"], name: "sections_journal_id"
-  end
-
-  create_table "sertifikat", id: :integer, charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
-    t.string "no_sertifikat", null: false
-    t.string "nama_penulis", null: false
-    t.string "judul_artikel", null: false
-    t.string "id_journal", null: false
-    t.string "status_bayar", default: "belum", null: false
-    t.datetime "created_at", precision: nil, default: -> { "current_timestamp()" }, null: false
-    t.datetime "updated_at", precision: nil, default: -> { "current_timestamp()" }, null: false
   end
 
   create_table "sessions", id: false, charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|

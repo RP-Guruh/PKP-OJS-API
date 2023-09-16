@@ -87,6 +87,6 @@ test:
 #
 production:
   <<: *default
-  database: u1149941_ojs628
-  username: u1149941_ojs628
+  database: u1039335_ojs495
+  username: u1039335_ojs495
   password: <%= ENV["ADMIN_JOURNAL_DATABASE_PASSWORD"] %>
