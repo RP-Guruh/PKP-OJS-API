@@ -17,17 +17,22 @@ class Api::V1::JournalController < Api::V1::AuthenticatedController
   def getJournalByID
     journal_id = params[:id]
     data = Journal.where(journal_id: journal_id).first
-    name_journal = JournalSetting.where(journal_id: journal_id).where(locale: "en_US").where.not(setting_value: nil).where(setting_name: "name").first
+    name_journal = JournalSetting.where(journal_id: journal_id).where(locale: data.primary_locale).where.not(setting_value: nil).where(setting_name: "name").first
+    about_journal = JournalSetting.where(journal_id: journal_id).where(locale: data.primary_locale).where.not(setting_value: nil).where(setting_name: "about").first
     
-    results = []
-    # about
-    # name
-	
-		if data
-		  results << { acronym: data.path, id: data.journal_id, locale: data.primary_locale,fullname: name_journal.setting_value  }
-		end
+    
+   	result_hash = {
+		  acronym: data.path,
+		  id: data.journal_id,
+		  locale: data.primary_locale,
+		  fullname: name_journal.setting_value,
+		  about: about_journal.setting_value
+		}
 
+		# Mengkonversi hash ke format JSON
+		result_json = result_hash.to_json
 
-    render json: results
-  end
+		# Mengirim JSON sebagai respons
+		render json: result_json
+	end
 end
