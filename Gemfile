@@ -49,5 +49,6 @@ end
 gem 'devise'
 gem 'json'
 gem 'rails_pretty_json'
+gem 'rubocop', '~> 1.56', '>= 1.56.3'
 
 

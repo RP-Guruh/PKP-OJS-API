@@ -10,13 +10,13 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       #   Issue API
-      get '/issues', to: 'issue#getAllIssue'
-      get '/issue_by_journal/:id', to: 'issue#getAllIssueByJournal'
-      get '/issue/:id', to: 'issue#getIssueByID'
+      get '/issues', to: 'issue#all_issue'
+      get '/issue/journal/:id', to: 'issue#issue_journal'
+      get '/issue/:id', to: 'issue#issue_id'
 
       #   Journal API
-      get '/journals', to: 'journal#getAllJournal'
-      get '/journal/:id', to: 'journal#getJournalByID'
+      get '/journals', to: 'journal#all_journal'
+      get '/journal/:id', to: 'journal#journal_id'
 
       #  Article API
       get '/publications', to: 'publication#getAllPublication'  # SEMUA PUBLIKASI PADA JURNAL
