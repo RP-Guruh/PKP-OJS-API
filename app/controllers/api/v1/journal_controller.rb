@@ -1,17 +1,39 @@
 class Api::V1::JournalController < Api::V1::AuthenticatedController
   def getAllJournal
-    data = Journal.joins(:journal_settings)
-                  .group('journals.journal_id').order('journals.journal_id DESC')
-                  .where("journal_settings.locale = ?", "en_US")
+    # Mengambil semua data jurnal
+    all_journals = Journal.all
 
-    render json: data.as_json(
-      include: {
-        journal_settings: {
-          only: [:setting_name, :setting_value]
-        }
-      },
-      only: [:journal_id, :path, :primary_locale]
-    )
+    # Inisialisasi array kosong untuk menyimpan hasil
+    result_array = []
+
+    # Iterasi melalui semua jurnal
+    all_journals.each do |data|
+      name_journal = JournalSetting.where(journal_id: data.journal_id)
+                                   .where(locale: data.primary_locale)
+                                   .where.not(setting_value: nil)
+                                   .where(setting_name: "name")
+                                   .first
+      about_journal = JournalSetting.where(journal_id: data.journal_id)
+                                    .where(locale: data.primary_locale)
+                                    .where.not(setting_value: nil)
+                                    .where(setting_name: "about")
+                                    .first
+
+      # Buat hash hasil untuk setiap jurnal
+      result_hash = {
+        id: data.journal_id,
+        acronym: data.path,
+        fullname: name_journal&.setting_value,
+        locale: data.primary_locale,
+        about: about_journal&.setting_value
+      }
+
+      # Tambahkan hash hasil ke dalam array hasil
+      result_array << result_hash
+    end
+
+    # Sekarang result_array berisi semua data yang diinginkan untuk semua jurnal
+    render json: result_array
   end
 
   def getJournalByID
